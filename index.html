@@ -2,28 +2,31 @@
 <html>
     <head>
         <title>Christine's Awesome Website</title>
+        <link rel = "stylesheet" href = "style.css">
     </head>
 
     <body>
         <!-- All content goes here -->
-        <div>
+        <div id = "all-contents">
             <nav>
-
+               <h1>Christine's Awesome Website</h1>   
+               <ul id = "nav-ul">
+                    <li class = "nav-li"><a href = "index.html">Home</a></li>
+                    <li class = "nav-li"><a href = "portfolio.html">Portfolio</a></li>
+               </ul>              
             </nav>
             <main>
-                 <!-- Sidebar section -->
-                <div>
-
-                </div>
+                <!-- Sidebar section -->
+               <div class = "sidebar">
+                    <img class = "sidebar-img" src = "images/profilepic.jpg">
+               </div>
                 <!-- Content section -->
-                <div>
+                <div class = "content">
                     <h2>Christine Scheller</h2>
-                    <p>
-
-                    </p>
+                    <p>Teacher at NHS</p>
                     <!-- Interests section -->
-                    <div>
-                        <h3>Interests:</h3>
+                    <div id ="interests">
+                        <h3>Interests</h3>
                         <ul>
                             <li>Drums</li>
                             <li>Reading</li>
@@ -31,7 +34,7 @@
                         </ul>
                     </div>
                 </div>
-            </main>
+            </main>            
         </div>
     </body>
 </html>
