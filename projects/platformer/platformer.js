@@ -44,8 +44,7 @@ $(function () {
     // You must decide the x position, y position, width, and height of the platforms
     // example usage: createPlatform(x,y,width,height)
 
-
-
+    createPlatform(500, 650, 200, 20);
     
     // TODO 2
     // Create collectables
@@ -53,8 +52,7 @@ $(function () {
     // Your collectable choices are 'database' 'diamond' 'grace' 'kennedi' 'max' and 'steve'; more can be added if you wish
     // example usage: createCollectable(type, x, y, gravity, bounce)
 
-
-
+    createCollectable("diamond", 100, 100, 1, 1);
 
     // TODO 3
     // Create cannons
