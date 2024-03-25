@@ -18,12 +18,116 @@ var runLevels = function (window) {
 
     // TODOs 5 through 11 go here
     // BEGIN EDITING YOUR CODE HERE
+    
+      function createSawBlade(x, y){
+          var hitZoneSize = 25;
+          var damageFromObstacle = 20;
+          var sawBladeHitZone = game.createObstacle(hitZoneSize, damageFromObstacle);
+          sawBladeHitZone.x = x;
+          sawBladeHitZone.y = y;
+          game.addGameItem(sawBladeHitZone);
+          var obstacleImage = draw.bitmap("img/sawblade.png");
+          sawBladeHitZone.addChild(obstacleImage);
+          obstacleImage.x = -25;
+          obstacleImage.y = -25;
+          sawBladeHitZone.rotationalVelocity = 10;
+      }
+
+      function createEnemy(x, y){
+        var enemy = game.createGameItem("enemy", 25);
+        var redSquare = draw.bitmap('img/bowser.png');
+        redSquare.x = -75;
+        redSquare.y = -150;
+        enemy.addChild(redSquare);
+        enemy.x = x;
+        enemy.y = y;
+        game.addGameItem(enemy);
+        enemy.velocityX = -4;
+        redSquare.scaleX = 0.25;
+        redSquare.scaleY = 0.25;
+
+        enemy.onPlayerCollision = function () {
+            game.changeIntegrity(-15);
+        };
+
+        enemy.onProjectileCollision = function (){
+          game.increaseScore(100);
+          enemy.fadeOut();
+          //enemy.shrink();
+          //enemy.flyTo(0, 0);
+        }
+      }
+
+      
+      function createReward(x, y){
+        var reward = game.createGameItem("enemy", 25);
+        var blueSquare = draw.bitmap('img/reward.png');
+        blueSquare.x = -27;
+        blueSquare.y = -45;
+        reward.addChild(blueSquare);
+        reward.x = x;
+        reward.y = y;
+        game.addGameItem(reward);
+        reward.velocityX = -4;
+        blueSquare.scaleX = 0.20;
+        blueSquare.scaleY = 0.20;
+
+
+        reward.onPlayerCollision = function () {
+            game.changeIntegrity(100);
+            game.increaseScore(100);
+            reward.shrink();
+        };
 
     
+      }
+
+      function createMarker(x, y){
+        var marker = game.createGameItem("enemy", 25);
+        var yellowSquare = draw.rect(50, 50, "yellow");
+        yellowSquare.x = -25;
+        yellowSquare.y = -25;
+        marker.addChild(yellowSquare);
+        marker.x = x;
+        marker.y = y;
+        game.addGameItem(marker);
+        marker.velocityX = -4;
+
+        marker.onPlayerCollision = function () {
+            game.changeIntegrity(25);  
+            startLevel();
+            marker.shrink();
+            
+        };
+      }
+
+
+      //function calls
+     
 
     function startLevel() {
       // TODO 13 goes below here
+      var level = levelData[currentLevel];
+      var levelObjects = level.gameItems;
+      for (var i = 0; i < levelObjects.length; i++){        
+        
+        
+        if(levelObjects[i].type === "sawblade"){
+          createSawBlade(levelObjects[i].x, levelObjects[i].y)
+        }
 
+        if(levelObjects[i].type === "enemy"){
+          createEnemy(levelObjects[i].x, levelObjects[i].y)
+        }
+
+        if(levelObjects[i].type === "reward"){
+          createReward(levelObjects[i].x, levelObjects[i].y)
+        }
+
+        if(levelObjects[i].type === "marker"){
+          createMarker(levelObjects[i].x, levelObjects[i].y)
+        }
+      }
 
 
       //////////////////////////////////////////////
