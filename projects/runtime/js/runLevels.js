@@ -33,18 +33,18 @@ var runLevels = function (window) {
           sawBladeHitZone.rotationalVelocity = 10;
       }
 
-      function createEnemy(x, y){
+      function createEnemy(x, y, image, moveX, moveY, velocity, scaleX, scaleY){
         var enemy = game.createGameItem("enemy", 25);
-        var redSquare = draw.bitmap('img/bowser.png');
-        redSquare.x = -75;
-        redSquare.y = -150;
+        var redSquare = draw.bitmap(image);
+        redSquare.x = moveX;
+        redSquare.y = moveY;
         enemy.addChild(redSquare);
         enemy.x = x;
         enemy.y = y;
         game.addGameItem(enemy);
-        enemy.velocityX = -4;
-        redSquare.scaleX = 0.25;
-        redSquare.scaleY = 0.25;
+        enemy.velocityX = velocity;
+        redSquare.scaleX = scaleX;
+        redSquare.scaleY = scaleY;
 
         enemy.onPlayerCollision = function () {
             game.changeIntegrity(-15);
@@ -109,23 +109,23 @@ var runLevels = function (window) {
       // TODO 13 goes below here
       var level = levelData[currentLevel];
       var levelObjects = level.gameItems;
-      for (var i = 0; i < levelObjects.length; i++){        
+      for (var i = 0; i < level.gameItems.length; i++){        
+        var element = levelObjects[i];
         
-        
-        if(levelObjects[i].type === "sawblade"){
-          createSawBlade(levelObjects[i].x, levelObjects[i].y)
+        if(element.type === "sawblade"){
+          createSawBlade(element.x, element.y)
         }
 
-        if(levelObjects[i].type === "enemy"){
-          createEnemy(levelObjects[i].x, levelObjects[i].y)
+        if(element.type === "enemy"){
+          createEnemy(element.x, element.y, element.image, element.moveX, element.moveY, element.velocity, element.scaleX, element.scaleY)
         }
 
-        if(levelObjects[i].type === "reward"){
-          createReward(levelObjects[i].x, levelObjects[i].y)
+        if(element.type === "reward"){
+          createReward(element.x, element.y)
         }
 
-        if(levelObjects[i].type === "marker"){
-          createMarker(levelObjects[i].x, levelObjects[i].y)
+        if(element.type === "marker"){
+          createMarker(element.x, element.y)
         }
       }
 
